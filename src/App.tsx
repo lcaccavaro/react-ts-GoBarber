@@ -3,10 +3,14 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import GlobalStyles from './styles/global';
 
+import { AuthProvider } from './contexts/AuthContext';
+
 function App() {
   return (
     <>
-      <SignIn />
+      <AuthProvider>
+        <SignIn />
+      </AuthProvider>
       <GlobalStyles />
     </>
   );
