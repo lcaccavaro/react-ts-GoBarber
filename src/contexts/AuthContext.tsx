@@ -9,11 +9,11 @@ interface SignInCredentials {
 
 interface AuthState {
   token: string;
-  user: object;
+  user: any;
 }
 
 interface AuthContextData {
-  user: object;
+  user: any;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -49,14 +49,12 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@GoBarber:token');
     localStorage.removeItem('@GoBarber:user');
-
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }
-    }>
-      { children}
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+      {children}
     </AuthContext.Provider>
   );
 };
