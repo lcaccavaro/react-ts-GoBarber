@@ -61,25 +61,23 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Appointment[]>(`/providers/${user.id}/month-availability`, {
-        params: {
-          year: currentMonth.getFullYear(),
-          month: currentMonth.getMonth() + 1,
+      .get<MonthAvailabilityItem[]>(
+        `/providers/${user.id}/month-availability`,
+        {
+          params: {
+            year: currentMonth.getFullYear(),
+            month: currentMonth.getMonth() + 1,
+          },
         },
-      })
+      )
       .then(response => {
-        const appointmentsFormatted = response.data.map(appointment => ({
-          ...appointment,
-          hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
-        }));
-
-        setAppointments(appointmentsFormatted);
+        setMonthAvailability(response.data);
       });
   }, [currentMonth, user.id]);
 
   useEffect(() => {
     api
-      .get('/appointments/me', {
+      .get<Appointment[]>('/appointments/me', {
         params: {
           year: selectedDate.getFullYear(),
           month: selectedDate.getMonth() + 1,
@@ -87,7 +85,14 @@ const Dashboard: React.FC = () => {
         },
       })
       .then(response => {
-        setAppointments(response.data);
+        const appointmentsFormatted = response.data.map(
+          (appointment: Appointment) => ({
+            ...appointment,
+            hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
+          }),
+        );
+
+        setAppointments(appointmentsFormatted);
       });
   }, [selectedDate]);
 

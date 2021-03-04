@@ -42,22 +42,22 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    // const response = await api.post('sessions', {
-    //   email,
-    //   password,
-    //  });
+    const response = await api.post('sessions', {
+      email,
+      password,
+    });
 
-    //  const { token, user } = response.data;
+    const { token, user } = response.data;
 
     //  mock
-    const token = '9932u42jnewnkel';
-    const user = {
-      id: 'i3ueodilenfaln',
-      name: 'Lucas Caccavaro',
-      email: 'lcaccavaro@gmail.com',
-      avatar_url:
-        'https://avatars.githubusercontent.com/u/40892464?s=460&u=4b21e0779f183df367942e0f232c2f4c3c40d2e6&v=4',
-    };
+    // const token = '9932u42jnewnkel';
+    // const user = {
+    //   id: 'i3ueodilenfaln',
+    //   name: 'Lucas Caccavaro',
+    //   email: 'lcaccavaro@gmail.com',
+    //   avatar_url:
+    //     'https://avatars.githubusercontent.com/u/40892464?s=460&u=4b21e0779f183df367942e0f232c2f4c3c40d2e6&v=4',
+    // };
 
     localStorage.setItem('@GoBarber:token', token);
     localStorage.setItem('@GoBarber:user', JSON.stringify(user));
